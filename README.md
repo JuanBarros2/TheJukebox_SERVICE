@@ -1,4 +1,4 @@
-# TheJukebox
+# The Jukebox - Spring Boot Server
 
 ### Funcionalidades requeridas no Lab 02
 
