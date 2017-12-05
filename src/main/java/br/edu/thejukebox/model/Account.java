@@ -9,23 +9,65 @@ import java.util.Set;
 @Entity
 @Table(name = "TB_Accounts")
 public class Account {
-
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @JsonIgnore
     private Long id;
     @OneToMany(mappedBy = "account")
-    private Set<Album> albums = new HashSet<Album>();
     @JsonIgnore
+    private Set<Album> albums;
+    private String email;
     private String password;
-    @JsonIgnore
     private String username;
 
     public Account() {
+        albums = new HashSet<>();
     }
 
-    public Account(String password, String username) {
+    public Account(String email, String password, String username) {
+        this.email = email;
         this.password = password;
         this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Set<Album> getAlbums() {
+        return albums;
+    }
+
+    public void setAlbums(Set<Album> albums) {
+        this.albums = albums;
     }
 
     @Override
@@ -35,28 +77,14 @@ public class Account {
 
         Account account = (Account) o;
 
-        return id != null ? id.equals(account.id) : account.id == null;
+        if (!id.equals(account.id)) return false;
+        return email.equals(account.email);
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
-
-    public Set<Album> getAlbums() {
-
-        return albums;
-    }
-
-    public void setAlbums(Set<Album> albums) {
-        this.albums = albums;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        int result = id.hashCode();
+        result = 31 * result + email.hashCode();
+        return result;
     }
 }

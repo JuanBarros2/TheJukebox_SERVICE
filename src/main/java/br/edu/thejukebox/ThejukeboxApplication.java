@@ -22,7 +22,7 @@ public class ThejukeboxApplication {
 				"juanbarros".split(","))
 				.forEach(
 						a -> {
-							Account account = accountRepository.save(new Account("juan",
+							Account account = accountRepository.save(new Account("juan","juan",
 									"Juan"));
 						});
 	}
