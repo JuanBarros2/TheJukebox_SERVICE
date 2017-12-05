@@ -21,7 +21,11 @@ public class Account {
     private String username;
 
     public Account() {
+    }
 
+    public Account(String password, String username) {
+        this.password = password;
+        this.username = username;
     }
 
     @Override
