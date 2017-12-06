@@ -8,6 +8,7 @@ import com.sun.org.apache.xml.internal.security.algorithms.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -19,11 +20,14 @@ public class AccountService {
     @Autowired
     private AccountRepository repository;
 
+    @Autowired
+    private BCryptPasswordEncoder crypt;
 
     public void registerAccount(Account account) throws DuplicateAccountException {
         if (repository.existsDistinctByEmail(account.getEmail())){
             throw new DuplicateAccountException();
         } else {
+            account.setPassword(crypt.encode(account.getPassword()));
             repository.save(account);
         }
     }

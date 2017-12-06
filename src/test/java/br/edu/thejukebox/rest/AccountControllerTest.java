@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @WebAppConfiguration
-public class AuthControllerTest {
+public class AccountControllerTest {
 
     private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
             MediaType.APPLICATION_JSON.getSubtype(),

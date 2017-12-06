@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
-public class AuthController{
+@RequestMapping("/account")
+public class AccountController {
 
     @Autowired
     private AccountService service;
@@ -19,9 +19,5 @@ public class AuthController{
         service.registerAccount(account);
     }
 
-    @RequestMapping(value = "/login" , method = RequestMethod.POST)
-    public void doLogin(Account session){
-
-    }
 
 }
