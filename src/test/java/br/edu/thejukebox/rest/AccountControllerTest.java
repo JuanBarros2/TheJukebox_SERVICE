@@ -63,13 +63,13 @@ public class AccountControllerTest {
     public void setup() throws Exception {
         this.mockMvc = webAppContextSetup(webApplicationContext).build();
 
-        this.account = accountRepository.save(new Account("juan","juan", "Juan"));
+
     }
 
     @Test
     public void registerAccount() throws Exception {
         mockMvc.perform(post("/auth/register")
-                .content(json(new Account("jua", "hyab","sa")))
+                //.content(json(new Account("jua", "hyab","sa")))
                 .contentType(contentType))
                 .andExpect(status().is(200));
         mockMvc.perform(post("/auth/register")

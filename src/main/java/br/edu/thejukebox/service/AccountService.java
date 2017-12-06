@@ -1,15 +1,13 @@
 package br.edu.thejukebox.service;
 
 import br.edu.thejukebox.exception.DuplicateAccountException;
-import br.edu.thejukebox.exception.UserNotFoundException;
 import br.edu.thejukebox.model.Account;
+import br.edu.thejukebox.model.User;
 import br.edu.thejukebox.repository.AccountRepository;
-import com.sun.org.apache.xml.internal.security.algorithms.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.Collections;
 import java.util.Date;
@@ -18,25 +16,24 @@ import java.util.Date;
 public class AccountService {
 
     @Autowired
-    private AccountRepository repository;
+    private AccountRepository accountRepository;
 
-    @Autowired
-    private BCryptPasswordEncoder crypt;
+    @ResponseStatus(HttpStatus.CREATED)
+    public void registerAccount(User user) {
 
-    public void registerAccount(Account account) throws DuplicateAccountException {
-        if (repository.existsDistinctByEmail(account.getEmail())){
-            throw new DuplicateAccountException();
+        this.validateField(user);
+        if (accountRepository.findAccountByUser_Email(user.getEmail()) == null){
+
+            Account account = new Account(user);
+            accountRepository.save(account);
         } else {
-            account.setPassword(crypt.encode(account.getPassword()));
-            repository.save(account);
+            throw new DuplicateAccountException();
         }
     }
 
-
-    private void validateUser(Account account) {
-        String userId = account.getUsername();
-        this.repository
-                .findAccountByUsername(userId)
-                .orElseThrow(() -> new UserNotFoundException(userId));
+    private void validateField(User user) {
+        if (user == null){
+            throw new IllegalArgumentException("O usuário está incorreto");
+        }
     }
 }

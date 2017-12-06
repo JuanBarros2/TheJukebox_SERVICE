@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.CONFLICT)
-public class DuplicateAccountException extends Exception {
+public class DuplicateAccountException extends RuntimeException {
 
     public DuplicateAccountException() {
         super("Já existe um usuário cadastrado nessa conta");
