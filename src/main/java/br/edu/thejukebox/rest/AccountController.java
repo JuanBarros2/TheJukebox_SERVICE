@@ -1,6 +1,5 @@
 package br.edu.thejukebox.rest;
 
-import br.edu.thejukebox.exception.DuplicateAccountException;
 import br.edu.thejukebox.model.User;
 import br.edu.thejukebox.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,5 @@ public class AccountController {
     public void registerAccount(@RequestBody User user){
         service.registerAccount(user);
     }
-
 
 }

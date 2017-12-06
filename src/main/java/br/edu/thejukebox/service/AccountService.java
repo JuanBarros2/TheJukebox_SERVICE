@@ -6,6 +6,7 @@ import br.edu.thejukebox.model.User;
 import br.edu.thejukebox.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -18,6 +19,9 @@ public class AccountService {
     @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @ResponseStatus(HttpStatus.CREATED)
     public void registerAccount(User user) {
 
@@ -25,6 +29,7 @@ public class AccountService {
         if (accountRepository.findAccountByUser_Email(user.getEmail()) == null){
 
             Account account = new Account(user);
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             accountRepository.save(account);
         } else {
             throw new DuplicateAccountException();
