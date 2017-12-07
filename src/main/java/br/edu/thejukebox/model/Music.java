@@ -1,13 +1,15 @@
 package br.edu.thejukebox.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "TB_Music")
 public class Music {
     @Id
     @GeneratedValue
+    @JsonIgnore
     private Long id;
     private String name;
     @OneToOne

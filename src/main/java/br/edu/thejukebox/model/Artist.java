@@ -1,21 +1,28 @@
 package br.edu.thejukebox.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "TB_Artist")
 public class Artist {
     @Id
     @GeneratedValue
+    @JsonIgnore
     private Long id;
     private String name;
     private String photo;
     private Byte rating;
-    @OneToOne
-    private Music lastMusic;
 
     public Artist(){
+        this.name = "";
+        this.photo = "";
+        this.rating = 0;
+    }
 
+    public Artist(String name) {
+        this();
+        this.name = name;
     }
 
     @Override
@@ -25,15 +32,12 @@ public class Artist {
 
         Artist artist = (Artist) o;
 
-        if (!id.equals(artist.id)) return false;
         return name.equals(artist.name);
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + name.hashCode();
-        return result;
+        return name.hashCode();
     }
 
     public String getName() {
@@ -44,7 +48,27 @@ public class Artist {
         this.rating = rating;
     }
 
-    public void setLastMusic(Music lastMusic) {
-        this.lastMusic = lastMusic;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public Byte getRating() {
+        return rating;
     }
 }

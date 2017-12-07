@@ -6,10 +6,10 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "TB_Album")
 public class Album {
     @Id
     @GeneratedValue
+    @JsonIgnore
     private Long id;
     @OneToMany(mappedBy = "album")
     private Set<Music> musicSet;

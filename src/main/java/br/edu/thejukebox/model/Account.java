@@ -1,22 +1,24 @@
 package br.edu.thejukebox.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "TB_Accounts")
 public class Account {
     @Id
     @GeneratedValue
+    @JsonIgnore
     private Long id;
     @OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
     private User user;
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
     private Set<Album> albumSet;
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
     private Set<Artist> artistSet;
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
     private Set<Artist> favorite;
 
     public Account(){
