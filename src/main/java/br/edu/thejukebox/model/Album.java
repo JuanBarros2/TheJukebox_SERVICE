@@ -3,6 +3,7 @@ package br.edu.thejukebox.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -11,11 +12,14 @@ public class Album {
     @GeneratedValue
     @JsonIgnore
     private Long id;
-    @OneToMany(mappedBy = "album")
+    @JsonIgnore
+    @OneToMany(mappedBy = "album",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
     private Set<Music> musicSet;
     private String name;
 
-    public Album(){}
+    public Album(){
+        this.musicSet = new HashSet<>();
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -24,15 +28,16 @@ public class Album {
 
         Album album = (Album) o;
 
-        if (!id.equals(album.id)) return false;
-        return name.equals(album.name);
+        return name != null ? name.equals(album.name) : album.name == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + name.hashCode();
-        return result;
+        return name != null ? name.hashCode() : 0;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setMusicSet(Set<Music> musicSet) {

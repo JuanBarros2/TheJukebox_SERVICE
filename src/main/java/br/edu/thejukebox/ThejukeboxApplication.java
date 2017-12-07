@@ -1,8 +1,10 @@
 package br.edu.thejukebox;
 
 import br.edu.thejukebox.model.Account;
+import br.edu.thejukebox.model.Artist;
 import br.edu.thejukebox.model.User;
 import br.edu.thejukebox.repository.AccountRepository;
+import br.edu.thejukebox.repository.ArtistRepository;
 import br.edu.thejukebox.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,12 +22,14 @@ public class ThejukeboxApplication {
 	}
 
 	@Bean
-	CommandLineRunner init(UserRepository accountRepository) {
+	CommandLineRunner init(AccountRepository accountRepository, BCryptPasswordEncoder crypt) {
 		return (evt) -> Arrays.asList(
 				"juanbarros".split(","))
 				.forEach(
 						a -> {
-						accountRepository.save(new User( a,"1234"));
+							Account account = new Account(new User(a, crypt.encode("1234")));
+							account.getArtistSet().add(new Artist("Arctic Monkeys"));
+							accountRepository.save(account);
 						});
 	}
 

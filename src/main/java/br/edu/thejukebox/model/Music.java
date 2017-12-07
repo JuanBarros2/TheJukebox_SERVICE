@@ -12,9 +12,9 @@ public class Music {
     @JsonIgnore
     private Long id;
     private String name;
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
     private Artist artist;
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
     private Album album;
     private Integer year;
     private String duration;
@@ -30,16 +30,14 @@ public class Music {
 
         Music music = (Music) o;
 
-        if (!id.equals(music.id)) return false;
-        if (!name.equals(music.name)) return false;
-        return album.equals(music.album);
+        if (name != null ? !name.equals(music.name) : music.name != null) return false;
+        return album != null ? album.equals(music.album) : music.album == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + name.hashCode();
-        result = 31 * result + album.hashCode();
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (album != null ? album.hashCode() : 0);
         return result;
     }
 
@@ -51,6 +49,43 @@ public class Music {
         return artist;
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setArtist(Artist artist) {
+        this.artist = artist;
+    }
+
+    public Album getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
 }

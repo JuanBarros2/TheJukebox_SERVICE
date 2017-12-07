@@ -10,4 +10,5 @@ import java.util.Set;
 
 public interface AccountRepository extends CrudRepository<Account, Long> {
     Account findAccountByUser_Email(String email);
+    boolean existsAccountByArtistSetContainsAndUserEmail(Artist artist, String email);
 }

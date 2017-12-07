@@ -4,5 +4,5 @@ import br.edu.thejukebox.model.Album;
 import org.springframework.data.repository.CrudRepository;
 
 public interface AlbumRepository extends CrudRepository<Album, Long> {
-
+    Album findFirstById(Long id);
 }
