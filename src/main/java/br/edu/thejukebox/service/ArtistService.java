@@ -56,6 +56,8 @@ public class ArtistService {
             if (artist != null){
                 artist.setFavorite(newer.getFavorite() != null ? newer.getFavorite() : artist.getFavorite());
                 artist.setRating(newer.getRating() != null ? newer.getRating(): artist.getRating());
+                artist.setLastMusic(newer.getLastMusic() != null ? newer.getLastMusic(): artist.getLastMusic());
+                //TODO Realizar validação da música
                 repository.save(account);
             }
 

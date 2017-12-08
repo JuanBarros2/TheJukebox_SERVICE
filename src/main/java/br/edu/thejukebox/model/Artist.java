@@ -14,12 +14,15 @@ public class Artist {
     private String photo;
     private Byte rating;
     private Boolean favorite;
+    @OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    private Music lastMusic;
 
     public Artist(){
         this.name = "";
         this.photo = "";
         this.rating = 0;
         this.favorite = false;
+        this.lastMusic = null;
     }
 
     public Artist(String name) {
@@ -44,6 +47,14 @@ public class Artist {
 
     public Boolean getFavorite() {
         return favorite;
+    }
+
+    public Music getLastMusic() {
+        return lastMusic;
+    }
+
+    public void setLastMusic(Music lastMusic) {
+        this.lastMusic = lastMusic;
     }
 
     public void setFavorite(Boolean favorite) {
