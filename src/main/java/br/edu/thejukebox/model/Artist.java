@@ -13,11 +13,13 @@ public class Artist {
     private String name;
     private String photo;
     private Byte rating;
+    private Boolean favorite;
 
     public Artist(){
         this.name = "";
         this.photo = "";
         this.rating = 0;
+        this.favorite = false;
     }
 
     public Artist(String name) {
@@ -38,6 +40,14 @@ public class Artist {
     @Override
     public int hashCode() {
         return name.hashCode();
+    }
+
+    public Boolean getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(Boolean favorite) {
+        this.favorite = favorite;
     }
 
     public String getName() {

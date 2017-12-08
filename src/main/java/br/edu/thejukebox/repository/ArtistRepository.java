@@ -10,5 +10,4 @@ import java.util.stream.Stream;
 
 public interface ArtistRepository extends CrudRepository<Artist, Long> {
     Artist findFirstByName(String name);
-
 }

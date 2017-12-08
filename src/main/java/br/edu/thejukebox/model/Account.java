@@ -18,13 +18,10 @@ public class Account {
     private Set<Album> albumSet;
     @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
     private Set<Artist> artistSet;
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    private Set<Artist> favorite;
 
     public Account(){
         this.albumSet = new HashSet<>();
         this.artistSet = new HashSet<>();
-        this.favorite = new HashSet<>();
     }
 
     public Account(User user){
@@ -52,10 +49,6 @@ public class Account {
 
     public User getUser() {
         return user;
-    }
-
-    public Set<Artist> getFavorite() {
-        return favorite;
     }
 
     public Set<Album> getAlbumSet() {

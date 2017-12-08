@@ -7,6 +7,9 @@ import br.edu.thejukebox.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
+import java.util.function.Consumer;
+
 @Service
 public class ArtistService {
     @Autowired
@@ -36,5 +39,29 @@ public class ArtistService {
         if (artist == null || artist.getName() == null) {
             throw new ArtistInvalidException();
         }
+    }
+
+    public Artist updateArtist(String email, Artist newer){
+        validateArtist(newer);
+        Account account = repository.findAccountByUser_Email(email);
+        if(account != null && account.getArtistSet().contains(newer)){
+            Artist artist = null;
+            for(Artist aux : account.getArtistSet()) {
+                if (aux.getName().equals(newer.getName())){
+                    artist = aux;
+                    break;
+                }
+            }
+
+            if (artist != null){
+                artist.setFavorite(newer.getFavorite() != null ? newer.getFavorite() : artist.getFavorite());
+                artist.setRating(newer.getRating() != null ? newer.getRating(): artist.getRating());
+                repository.save(account);
+            }
+
+        } else {
+            throw new ArtistInvalidException();
+        }
+        return newer;
     }
 }

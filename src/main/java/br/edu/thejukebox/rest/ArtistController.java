@@ -23,4 +23,15 @@ public class ArtistController {
     public Iterable<Artist> listAll(Principal principal){
         return service.listAll(principal.getName());
     }
+
+    @PutMapping(value = "/favorite")
+    public boolean favorite(Principal principal, @RequestBody Artist artist){
+        artist = service.updateArtist(principal.getName(), artist);
+        return artist.getFavorite();
+    }
+
+    @PutMapping(value = "/rating")
+    public Artist ranking(Principal principal, @RequestBody Artist artist){
+        return service.updateArtist(principal.getName(), artist);
+    }
 }
