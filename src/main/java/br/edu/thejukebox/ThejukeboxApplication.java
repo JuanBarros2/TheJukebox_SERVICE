@@ -1,8 +1,6 @@
 package br.edu.thejukebox;
 
-import br.edu.thejukebox.model.Account;
-import br.edu.thejukebox.model.Artist;
-import br.edu.thejukebox.model.User;
+import br.edu.thejukebox.model.*;
 import br.edu.thejukebox.repository.AccountRepository;
 import br.edu.thejukebox.repository.ArtistRepository;
 import br.edu.thejukebox.repository.UserRepository;
@@ -28,7 +26,18 @@ public class ThejukeboxApplication {
 				.forEach(
 						a -> {
 							Account account = new Account(new User(a, crypt.encode("1234")));
-							account.getArtistSet().add(new Artist("Arctic Monkeys"));
+							Artist artist = new Artist("Arctic Monkeys");
+							account.getArtistSet().add(artist);
+							Album album = new Album();
+							album.setName("Humbug");
+							Music music = new Music();
+							music.setName("Secret Door");
+							music.setDuration("3");
+							music.setYear(2009);
+							music.setAlbum(album);
+							music.setArtist(artist);
+							album.getMusicSet().add(music);
+							//account.getAlbumSet().add(album);
 							accountRepository.save(account);
 						});
 	}

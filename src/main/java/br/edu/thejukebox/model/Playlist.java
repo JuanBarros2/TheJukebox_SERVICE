@@ -7,17 +7,16 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Album {
+public class Playlist {
     @Id
     @GeneratedValue
     @JsonIgnore
     private Long id;
-    @JsonIgnore()
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @OneToMany
     private Set<Music> musicSet;
     private String name;
 
-    public Album(){
+    public Playlist(){
         this.musicSet = new HashSet<>();
     }
 
@@ -26,9 +25,9 @@ public class Album {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Album album = (Album) o;
+        Playlist playlist = (Playlist) o;
 
-        return name != null ? name.equals(album.name) : album.name == null;
+        return name != null ? name.equals(playlist.name) : playlist.name == null;
     }
 
     @Override

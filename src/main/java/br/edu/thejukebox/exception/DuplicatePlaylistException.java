@@ -4,9 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.CONFLICT)
-public class DuplicateMusicException extends RuntimeException{
-
-    public DuplicateMusicException(){
-        super("Já existe essa música nessa coleção");
+public class DuplicatePlaylistException extends RuntimeException {
+    public DuplicatePlaylistException(){
+        super("Essa playlist já existe");
     }
 }

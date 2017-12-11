@@ -29,6 +29,7 @@ public class AlbumService {
         if(account != null && account.getArtistSet().contains(music.getArtist())){
             Album album = getAlbumFromAccount(music, account);
             if (album == null) {
+                account.getAlbumSet().add(music.getAlbum());
                 album = music.getAlbum();
             }
             if(album.getMusicSet().contains(music)){
@@ -36,8 +37,7 @@ public class AlbumService {
             }
             album.getMusicSet().add(music);
             account.getAlbumSet().add(album);
-            account = repository.save(account);
-            System.out.println(album.getName());
+            repository.save(account);
         } else {
             throw new ArtistInvalidException("Não foi encontrado esse artista para essa conta");
         }
@@ -63,4 +63,10 @@ public class AlbumService {
                     || music.getDuration()== null || music.getYear()== null || music.getArtist()== null)
             throw new IllegalArgumentException("Música não respeita ao formato do sistema");
     }
+
+    public Iterable<Album> listAll(String username){
+        Account account = repository.findAccountByUser_Email(username);
+        return account.getAlbumSet();
+    }
+
 }

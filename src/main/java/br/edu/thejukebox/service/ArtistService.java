@@ -15,7 +15,6 @@ public class ArtistService {
     @Autowired
     private AccountRepository repository;
 
-
     public Artist addArtist(Artist artist, String username){
         validateArtist(artist);
         artist = new Artist(artist.getName());

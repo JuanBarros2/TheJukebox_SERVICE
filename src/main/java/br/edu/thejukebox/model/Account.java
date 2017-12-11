@@ -18,6 +18,8 @@ public class Account {
     private Set<Album> albumSet;
     @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
     private Set<Artist> artistSet;
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    private Set<Playlist> playlistSet;
 
     public Account(){
         this.albumSet = new HashSet<>();
@@ -45,6 +47,18 @@ public class Account {
         int result = id.hashCode();
         result = 31 * result + user.hashCode();
         return result;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Set<Playlist> getPlaylistSet() {
+        return playlistSet;
+    }
+
+    public void setPlaylistSet(Set<Playlist> playlistSet) {
+        this.playlistSet = playlistSet;
     }
 
     public User getUser() {

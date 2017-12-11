@@ -1,5 +1,6 @@
 package br.edu.thejukebox.rest;
 
+import br.edu.thejukebox.model.Album;
 import br.edu.thejukebox.model.Music;
 import br.edu.thejukebox.service.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +20,10 @@ public class AlbumController {
     @PostMapping(value = "/add/music")
     public Music addMusic(Principal principal, @RequestBody Music music){
         return service.addMusic(principal.getName(), music);
+    }
+
+    @GetMapping(value = "/list")
+    public Iterable<Album> listAll(Principal principal){
+        return service.listAll(principal.getName());
     }
 }
