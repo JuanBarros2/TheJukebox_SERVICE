@@ -105,18 +105,13 @@ public class PlaylistService {
         Account account = repository.findAccountByUser_Email(email);
         Music music = playlist.getMusicSet().iterator().next();
         if(account != null){
-            music = musicRepository.findFirstByName(music.getName());
             playlist = getPlaylistFromAccount(playlist, account);
             if (playlist != null) {
-                if(music == null){
+                if(playlist.getMusicSet().remove(music)){
+                    repository.save(account);
+                }else{
                     throw new MusicNotFoundException();
                 }
-                if(playlist.getMusicSet().contains(music)){
-                    throw new DuplicateMusicException();
-                }
-                playlist.getMusicSet().add(music);
-                account.getPlaylistSet().add(playlist);
-                repository.save(account);
             }else {
                 throw new PlaylistNotFountException();
             }

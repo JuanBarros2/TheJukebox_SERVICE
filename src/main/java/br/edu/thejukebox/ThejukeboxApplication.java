@@ -37,7 +37,7 @@ public class ThejukeboxApplication {
 							music.setAlbum(album);
 							music.setArtist(artist);
 							album.getMusicSet().add(music);
-							//account.getAlbumSet().add(album);
+							account.getAlbumSet().add(album);
 							accountRepository.save(account);
 						});
 	}

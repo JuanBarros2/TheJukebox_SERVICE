@@ -36,5 +36,6 @@ public class PlaylistController {
     public Music removeMusic(Principal principal, @RequestBody Playlist playlist ){
         return service.removeMusic(principal.getName(), playlist);
     }
+    
 }
 
