@@ -13,7 +13,7 @@ public class AccountController {
     private AccountService service;
 
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST, headers = {"content-type=application/json"})
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public void registerAccount(@RequestBody User user){
         service.registerAccount(user);
     }
