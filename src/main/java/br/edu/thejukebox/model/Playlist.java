@@ -12,12 +12,12 @@ public class Playlist {
     @GeneratedValue
     @JsonIgnore
     private Long id;
-    @OneToMany
-    private Set<Music> musicSet;
+    @ManyToMany
+    private Set<Music> musics;
     private String name;
 
     public Playlist(){
-        this.musicSet = new HashSet<>();
+        this.musics = new HashSet<>();
     }
 
     @Override
@@ -39,13 +39,13 @@ public class Playlist {
         this.name = name;
     }
 
-    public void setMusicSet(Set<Music> musicSet) {
-        this.musicSet = musicSet;
+    public void setMusics(Set<Music> musics) {
+        this.musics = musics;
     }
 
-    public Set<Music> getMusicSet() {
+    public Set<Music> getMusics() {
 
-        return musicSet;
+        return musics;
     }
 
     public String getName() {

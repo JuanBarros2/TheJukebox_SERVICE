@@ -14,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.util.Arrays;
+import java.util.HashSet;
 
 @SpringBootApplication
 public class ThejukeboxApplication {
@@ -38,6 +39,11 @@ public class ThejukeboxApplication {
 							music.setDuration("3");
 							music.setYear(2009);
 							music.setAlbum(album);
+							Playlist playlist = new Playlist();
+							playlist.setName("Sono");
+							playlist.getMusics().add(music);
+							account.setPlaylistSet(new HashSet<>());
+							account.getPlaylistSet().add(playlist);
 							music.setArtist(artist);
 							album.getMusicSet().add(music);
 							account.getAlbumSet().add(album);

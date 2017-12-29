@@ -11,6 +11,7 @@ import br.edu.thejukebox.repository.AlbumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Iterator;
 
 @Service
@@ -24,10 +25,9 @@ public class AlbumService {
     public Music addMusic(String email, Album album) {
         validadeAlbum(album);
         Music music = album.getMusicSet().iterator().next();
-        Album aux = new Album();
-        aux.setName(album.getName());
-        music.setAlbum(aux);
         validadeMusic(music);
+        music.setAlbum(album);
+        album.setMusicSet(new HashSet<>());
         Account account = repository.findAccountByUser_Email(email);
 
         if(account != null && account.getArtistSet().contains(music.getArtist())){
@@ -68,8 +68,7 @@ public class AlbumService {
         }
     }
     private void validadeMusic(Music music) {
-        if(music == null || music.getName()== null || music.getAlbum() == null
-                    || music.getDuration()== null || music.getYear()== null || music.getArtist()== null)
+        if(music == null || music.getName()== null || music.getDuration()== null || music.getYear()== null || music.getArtist()== null)
             throw new IllegalArgumentException("Música não respeita ao formato do sistema");
     }
 

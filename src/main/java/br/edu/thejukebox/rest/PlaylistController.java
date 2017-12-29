@@ -1,5 +1,6 @@
 package br.edu.thejukebox.rest;
 
+import br.edu.thejukebox.model.Album;
 import br.edu.thejukebox.model.Music;
 import br.edu.thejukebox.model.Playlist;
 import br.edu.thejukebox.service.PlaylistService;
@@ -36,6 +37,14 @@ public class PlaylistController {
     public Music removeMusic(Principal principal, @RequestBody Playlist playlist ){
         return service.removeMusic(principal.getName(), playlist);
     }
+
+    @GetMapping(value = "/list")
+    public Iterable<Playlist> listAll(Principal principal){
+        return service.listAll(principal.getName());
+    }
+
+
+
 
 }
 

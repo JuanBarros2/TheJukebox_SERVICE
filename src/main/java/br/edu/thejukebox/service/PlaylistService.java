@@ -23,7 +23,7 @@ public class PlaylistService {
 
         validadePlaylist(playlist);
         Account account = repository.findAccountByUser_Email(email);
-        Music music = playlist.getMusicSet().iterator().next();
+        Music music = playlist.getMusics().iterator().next();
         if(account != null){
             music = musicRepository.findFirstByName(music.getName());
             playlist = getPlaylistFromAccount(playlist, account);
@@ -31,10 +31,10 @@ public class PlaylistService {
                 if(music == null){
                     throw new MusicNotFoundException();
                 }
-                if(playlist.getMusicSet().contains(music)){
+                if(playlist.getMusics().contains(music)){
                     throw new DuplicateMusicException();
                 }
-                playlist.getMusicSet().add(music);
+                playlist.getMusics().add(music);
                 account.getPlaylistSet().add(playlist);
                 repository.save(account);
             }else {
@@ -62,7 +62,7 @@ public class PlaylistService {
     }
 
     private void validadePlaylist(Playlist playlist) {
-        if(playlist == null || playlist.getName()== null || playlist.getMusicSet() == null || playlist.getMusicSet().size() != 1 )
+        if(playlist == null || playlist.getName()== null || playlist.getMusics() == null || playlist.getMusics().size() != 1 )
             throw new IllegalArgumentException("Playlist não respeita ao formato do sistema");
     }
 
@@ -103,11 +103,11 @@ public class PlaylistService {
 
         validadePlaylist(playlist);
         Account account = repository.findAccountByUser_Email(email);
-        Music music = playlist.getMusicSet().iterator().next();
+        Music music = playlist.getMusics().iterator().next();
         if(account != null){
             playlist = getPlaylistFromAccount(playlist, account);
             if (playlist != null) {
-                if(playlist.getMusicSet().remove(music)){
+                if(playlist.getMusics().remove(music)){
                     repository.save(account);
                 }else{
                     throw new MusicNotFoundException();
@@ -120,5 +120,10 @@ public class PlaylistService {
             throw new UserNotFoundException("Não foi possível encontrar esse usuário");
         }
         return music;
+    }
+
+    public Iterable<Playlist> listAll(String username){
+        Account account = repository.findAccountByUser_Email(username);
+        return account.getPlaylistSet();
     }
 }
