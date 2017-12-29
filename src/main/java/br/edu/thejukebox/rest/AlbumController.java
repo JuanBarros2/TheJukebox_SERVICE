@@ -18,8 +18,8 @@ public class AlbumController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/add/music")
-    public Music addMusic(Principal principal, @RequestBody Music music){
-        return service.addMusic(principal.getName(), music);
+    public Music addMusic(Principal principal, @RequestBody Album album){
+        return service.addMusic(principal.getName(), album);
     }
 
     @GetMapping(value = "/list")

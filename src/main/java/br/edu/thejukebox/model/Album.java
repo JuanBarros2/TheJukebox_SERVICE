@@ -12,7 +12,6 @@ public class Album {
     @GeneratedValue
     @JsonIgnore
     private Long id;
-    @JsonIgnore()
     @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
     private Set<Music> musicSet;
     private String name;

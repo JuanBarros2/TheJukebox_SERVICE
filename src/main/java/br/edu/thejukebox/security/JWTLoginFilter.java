@@ -6,6 +6,8 @@ import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.edu.thejukebox.exception.UserInvalidException;
+import br.edu.thejukebox.exception.UserNotFoundException;
 import br.edu.thejukebox.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -38,6 +40,8 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
             );
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } catch (AuthenticationException e){
+            throw new UserInvalidException();
         }
     }
 

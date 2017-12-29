@@ -21,13 +21,17 @@ public class AlbumService {
     @Autowired
     private AlbumRepository albumRepository;
 
-    public Music addMusic(String email, Music music) {
-
+    public Music addMusic(String email, Album album) {
+        validadeAlbum(album);
+        Music music = album.getMusicSet().iterator().next();
+        Album aux = new Album();
+        aux.setName(album.getName());
+        music.setAlbum(aux);
         validadeMusic(music);
         Account account = repository.findAccountByUser_Email(email);
 
         if(account != null && account.getArtistSet().contains(music.getArtist())){
-            Album album = getAlbumFromAccount(music, account);
+            album = getAlbumFromAccount(music, account);
             if (album == null) {
                 account.getAlbumSet().add(music.getAlbum());
                 album = music.getAlbum();
@@ -58,6 +62,11 @@ public class AlbumService {
         return album;
     }
 
+    private void validadeAlbum(Album album){
+        if(album == null || album.getName() == null || album.getName().isEmpty()){
+            throw  new IllegalArgumentException("Album inválido");
+        }
+    }
     private void validadeMusic(Music music) {
         if(music == null || music.getName()== null || music.getAlbum() == null
                     || music.getDuration()== null || music.getYear()== null || music.getArtist()== null)

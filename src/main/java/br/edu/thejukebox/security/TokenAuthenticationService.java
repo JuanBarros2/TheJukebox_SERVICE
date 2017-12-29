@@ -1,5 +1,7 @@
 package br.edu.thejukebox.security;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.Date;
 
@@ -22,8 +24,14 @@ public class TokenAuthenticationService {
 				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
 				.signWith(SignatureAlgorithm.HS512, SECRET)
 				.compact();
-
-		response.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + JWT);
+		try {
+			PrintWriter writer = response.getWriter();
+			writer.write("{\"" +HEADER_STRING+"\": \""+ TOKEN_PREFIX + " " + JWT +"\"}");
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	static Authentication getAuthentication(HttpServletRequest request) {

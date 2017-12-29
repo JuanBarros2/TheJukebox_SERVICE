@@ -14,8 +14,9 @@ public class AccountController {
 
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public void registerAccount(@RequestBody User user){
+    public User registerAccount(@RequestBody User user){
         service.registerAccount(user);
+        return user;
     }
 
 }

@@ -27,11 +27,13 @@ public class ArtistController {
         return service.listAll(principal.getName());
     }
 
+
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PutMapping(value = "/favorite")
-    public boolean favorite(Principal principal, @RequestBody Artist artist){
+    public Artist favorite(Principal principal, @RequestBody Artist artist){
+        artist.setFavorite(!artist.getFavorite());
         artist = service.updateArtist(principal.getName(), artist);
-        return artist.getFavorite();
+        return artist;
     }
 
     @ResponseStatus(HttpStatus.ACCEPTED)
