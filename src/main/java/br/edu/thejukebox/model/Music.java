@@ -1,5 +1,6 @@
 package br.edu.thejukebox.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -14,7 +15,6 @@ public class Music {
     private String name;
     @OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
     private Artist artist;
-    @JsonIgnore
     @ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
     private Album album;
     private Integer year;

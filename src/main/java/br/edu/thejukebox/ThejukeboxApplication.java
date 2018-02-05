@@ -31,6 +31,7 @@ public class ThejukeboxApplication {
 						a -> {
 							Account account = new Account(new User(a, crypt.encode("1234")));
 							Artist artist = new Artist("Arctic Monkeys");
+							artist.setPhoto("http://www.arcticmonkeys.com/metaimage.jpg");
 							account.getArtistSet().add(artist);
 							Album album = new Album();
 							album.setName("Humbug");

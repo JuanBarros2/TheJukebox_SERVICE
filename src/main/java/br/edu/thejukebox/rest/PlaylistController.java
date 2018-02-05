@@ -28,12 +28,12 @@ public class PlaylistController {
         return service.addPlaylist(principal.getName(), playlist);
     }
 
-    @DeleteMapping(value = "/remove")
+    @PostMapping(value = "/remove")
     public Playlist removePlaylist(Principal principal, @RequestBody Playlist playlist){
         return service.removePlaylist(principal.getName(), playlist);
     }
 
-    @DeleteMapping(value = "/remove/music")
+    @PostMapping(value = "/remove/music")
     public Music removeMusic(Principal principal, @RequestBody Playlist playlist ){
         return service.removeMusic(principal.getName(), playlist);
     }

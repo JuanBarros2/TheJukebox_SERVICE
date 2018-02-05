@@ -24,6 +24,7 @@ public class AlbumController {
 
     @GetMapping(value = "/list")
     public Iterable<Album> listAll(Principal principal){
+
         return service.listAll(principal.getName());
     }
 }

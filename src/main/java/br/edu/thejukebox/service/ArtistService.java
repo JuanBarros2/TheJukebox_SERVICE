@@ -4,6 +4,7 @@ import br.edu.thejukebox.exception.ArtistInvalidException;
 import br.edu.thejukebox.model.Account;
 import br.edu.thejukebox.model.Artist;
 import br.edu.thejukebox.repository.AccountRepository;
+import br.edu.thejukebox.repository.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +15,14 @@ import java.util.function.Consumer;
 public class ArtistService {
     @Autowired
     private AccountRepository repository;
+    @Autowired
+    private ArtistRepository artistRepository;
 
     public Artist addArtist(Artist artist, String username){
         validateArtist(artist);
+        String photo = artist.getPhoto();
         artist = new Artist(artist.getName());
+        artist.setPhoto(photo);
         Account account = repository.findAccountByUser_Email(username);
         if(account != null && !account.getArtistSet().contains(artist)){
             account.getArtistSet().add(artist);

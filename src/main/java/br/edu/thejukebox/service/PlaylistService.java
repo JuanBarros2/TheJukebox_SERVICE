@@ -44,6 +44,7 @@ public class PlaylistService {
         } else {
             throw new UserNotFoundException("Não foi possível encontrar esse usuário");
         }
+        music.setAlbum(null);
         return music;
     }
 
@@ -82,12 +83,12 @@ public class PlaylistService {
         return album;
     }
 
-    public Playlist removePlaylist(String email, Playlist album) {
+    public Playlist removePlaylist(String email, Playlist playlist) {
 
         Account account = repository.findAccountByUser_Email(email);
 
         if (account != null){
-            if(account.getPlaylistSet().remove(album)){
+            if(account.getPlaylistSet().remove(playlist)){
                 repository.save(account);
             }else{
                 throw new PlaylistNotFountException();
@@ -95,7 +96,8 @@ public class PlaylistService {
         } else {
             throw new UserNotFoundException("Não foi possível encontrar esse usuário");
         }
-        return album;
+        playlist.setMusics(null);
+        return playlist;
 
     }
 
@@ -119,11 +121,17 @@ public class PlaylistService {
         } else {
             throw new UserNotFoundException("Não foi possível encontrar esse usuário");
         }
+        music.setAlbum(null);
         return music;
     }
 
     public Iterable<Playlist> listAll(String username){
         Account account = repository.findAccountByUser_Email(username);
+        for(Playlist playlist : account.getPlaylistSet()){
+            for(Music music: playlist.getMusics()){
+                music.getAlbum().setMusicSet(null);
+            }
+        }
         return account.getPlaylistSet();
     }
 }

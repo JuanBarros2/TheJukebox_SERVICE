@@ -42,6 +42,7 @@ public class AlbumService {
             album.getMusicSet().add(music);
             account.getAlbumSet().add(album);
             repository.save(account);
+            music.getAlbum().setMusicSet(null);
         } else {
             throw new ArtistInvalidException("Não foi encontrado esse artista para essa conta");
         }
@@ -74,6 +75,11 @@ public class AlbumService {
 
     public Iterable<Album> listAll(String username){
         Account account = repository.findAccountByUser_Email(username);
+        for(Album album : account.getAlbumSet()){
+            for(Music music: album.getMusicSet()){
+                music.setAlbum(null);
+            }
+        }
         return account.getAlbumSet();
     }
 

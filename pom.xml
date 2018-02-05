@@ -42,15 +42,15 @@
 			<artifactId>h2</artifactId>
 		</dependency>
 
-		<dependency>
+		<!--dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
 			<version>0.7.0</version>
-		</dependency>
-		<!--dependency>
+		</dependency-->
+		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-		</dependency-->
+		</dependency>
 	</dependencies>
 
 	<build>
