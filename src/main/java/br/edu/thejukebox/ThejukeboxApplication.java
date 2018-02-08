@@ -23,7 +23,7 @@ public class ThejukeboxApplication {
 		SpringApplication.run(ThejukeboxApplication.class, args);
 	}
 
-	@Bean
+	//@Bean
 	CommandLineRunner init(AccountRepository accountRepository, BCryptPasswordEncoder crypt) {
 		return (evt) -> Arrays.asList(
 				"juanbarros".split(","))
