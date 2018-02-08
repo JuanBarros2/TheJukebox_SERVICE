@@ -2,15 +2,16 @@ package br.edu.thejukebox.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table (name = "tbUser")
 public class User {
-    @Id
-    @GeneratedValue
+
+
     @JsonIgnore
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String email;
     private String username;
